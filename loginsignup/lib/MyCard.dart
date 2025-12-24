@@ -9,12 +9,16 @@ class MyCard extends StatelessWidget {
     required this.productName,
     required this.productDescription,
     required this.productPrice,
+    this.onPressed,
+    required this.cartIcon,
   });
 
   final String imageName;
   final String productName;
   final String productDescription;
   final String productPrice;
+  final Icon cartIcon;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,20 @@ class MyCard extends StatelessWidget {
       elevation: 10,
       child: Column(
         children: [
-          Image.memory(base64Decode(imageName)),
+          Stack(
+            alignment: AlignmentDirectional.topEnd,
+            children: [
+              Image.memory(base64Decode(imageName)),
+              Padding(
+                padding: const EdgeInsets.all(4),
+                child: CircleAvatar(
+                  maxRadius: 18,
+                  backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                  child: IconButton(onPressed: onPressed, icon: cartIcon),
+                ),
+              ),
+            ],
+          ),
           SizedBox(height: 6),
           Text(productName, style: TextStyle(fontSize: 18)),
           SizedBox(height: 6),

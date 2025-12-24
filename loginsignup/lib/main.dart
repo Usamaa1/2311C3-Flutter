@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:loginsignup/ProductsScreen.dart';
-import 'package:loginsignup/ViewOfProducts.dart';
+import 'package:loginsignup/ProductsScreen%20copy%202.dart';
+
 import 'package:loginsignup/firebase_options.dart';
 
 void main() async {
@@ -21,7 +21,10 @@ class MyApp extends StatelessWidget {
     // return MaterialApp(home: ProductsScreen());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ViewOfProducts()
-      );
+      // home: ViewOfProducts(),
+      // home: ProductsScreen(),
+      // home: Login(),
+      // home:,
+    );
   }
 }

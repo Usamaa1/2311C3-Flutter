@@ -186,19 +186,30 @@ class _ViewOfProductsState extends State<ViewOfProducts> {
       body: StreamBuilder(
         stream: prods,
         builder: (context, snapshot) {
+          
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Text("Server ${snapshot.error}");
+          }
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return Text("Empty data");
+          }
           var prodData = snapshot.data!.docs;
+
           return ListView.builder(
             itemCount: prodData.length,
             itemBuilder: (context, index) {
               print(prodData[index].id);
               return ListTile(
-                title: Text(prodData[index]["prodName"]),
+                title: Text(prodData[index]["prodName"] ?? ''),
                 subtitle: Text(
-                  "${prodData[index]['prodDescription']} | ${prodData[index]['prodPrice']}",
+                  "${prodData[index]['prodDescription'] ?? ''} | ${prodData[index]['prodPrice'] ?? ''}",
                 ),
                 leading: CircleAvatar(
                   backgroundImage: MemoryImage(
-                    base64Decode(prodData[index]["prodImage"]),
+                    base64Decode(prodData[index]["prodImage"] ?? ''),
                   ),
                 ),
                 trailing: Row(
